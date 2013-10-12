@@ -140,7 +140,7 @@ public class ChallengeInfo
    * @param secmech die BPD-Informationen zum TAN-Verfahren.
    * @return die HHD-Version.
    */
-  private String getVersion(Properties secmech)
+  private static String getVersion(Properties secmech)
   {
     // Das ist die "Technische Kennung"
     // Siehe "Belegungsrichtlinien TANve1.4  mit Erratum 1-3 final version vom 2010-11-12.pdf"
@@ -209,7 +209,7 @@ public class ChallengeInfo
       return;
     }
     
-    String version = this.getVersion(secmech); // HHD-Version
+    String version = getVersion(secmech); // HHD-Version
     HBCIUtils.log("using hhd version " + version, HBCIUtils.LOG_DEBUG2);
 
     // Parameter fuer die passende HHD-Version holen

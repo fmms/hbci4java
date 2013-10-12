@@ -213,7 +213,7 @@ public abstract class HBCICardService
   {
     try
     {
-      byte[] response = this.smartCard.transmitControlCommand(features.get(FEATURE_VERIFY_PIN_DIRECT),this.createPINVerificationDataStructure());
+      byte[] response = this.smartCard.transmitControlCommand(features.get(FEATURE_VERIFY_PIN_DIRECT), createPINVerificationDataStructure());
       
       ResponseAPDU apdu = new ResponseAPDU(response);
 
@@ -231,7 +231,7 @@ public abstract class HBCICardService
       
       //////////////////////////////////////////////////////////////////////////
       // Standard-Checks
-      this.check(apdu,new byte[]{(byte)0x90});
+      check(apdu,new byte[]{(byte)0x90});
       //
       //////////////////////////////////////////////////////////////////////////
     }
@@ -384,7 +384,7 @@ public abstract class HBCICardService
       HBCIUtils.log(caller + " command : " + toHex(command.getBytes()),HBCIUtils.LOG_DEBUG);
       HBCIUtils.log(caller + " response: " + toHex(response.getBytes()),HBCIUtils.LOG_DEBUG);
 
-      this.check(response,returncodes);
+      check(response,returncodes);
       return response.getData();
     }
     catch (HBCI_Exception e1)
@@ -402,7 +402,7 @@ public abstract class HBCICardService
    * @param response das Response.
    * @param returncodes zulaessige Return-Codes.
    */
-  private void check(ResponseAPDU response, byte[] returncodes)
+  private static void check(ResponseAPDU response, byte[] returncodes)
   {
     // Return-Code pruefen
     byte sw1 = (byte) response.getSW1();
@@ -427,7 +427,7 @@ public abstract class HBCICardService
    * @param bytes
    * @return String-Repraesentation.
    */
-  private String toHex(byte[] bytes)
+  private static String toHex(byte[] bytes)
   {
     StringBuffer sb = new StringBuffer();
     for (byte b:bytes)
@@ -471,7 +471,7 @@ public abstract class HBCICardService
    * @return
    * @throws IOException
    */
-  private byte[] createPINVerificationDataStructure() throws IOException
+  private static byte[] createPINVerificationDataStructure() throws IOException
   {
     ByteArrayOutputStream verifyCommand = new ByteArrayOutputStream();
     verifyCommand.write(0x0f); // bTimeOut

@@ -147,7 +147,7 @@ public final class CommStandard
         }
     }
     
-    private int extractMessageSize(StringBuffer st)
+    private static int extractMessageSize(StringBuffer st)
     {
         int ret=-1;
         

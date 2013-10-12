@@ -64,7 +64,7 @@ public class InfoPointConnector
 
     }
     
-    private Element properties2XML(Document doc, String elemName, Properties props)
+    private static Element properties2XML(Document doc, String elemName, Properties props)
     {
         Element elem=doc.createElement(elemName);
         for (Enumeration e=props.keys(); e.hasMoreElements(); ) {
@@ -77,7 +77,7 @@ public class InfoPointConnector
         return elem;
     }
     
-    private String prepareXMLDocument(String xmlType, Properties passportData, Properties msgData)
+    private static String prepareXMLDocument(String xmlType, Properties passportData, Properties msgData)
     {
         try {
             DocumentBuilderFactory fac=DocumentBuilderFactory.newInstance();
@@ -230,7 +230,7 @@ public class InfoPointConnector
         }
     }
     
-    private Properties preparePassportData(HBCIPassportInternal passport)
+    private static Properties preparePassportData(HBCIPassportInternal passport)
     {
         Properties passportData=new Properties();
         

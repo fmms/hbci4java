@@ -169,7 +169,7 @@ public class HBCIPassportAnonymous
         return "Anonymous";
     }
     
-    private String getElementValue(Element root,String name)
+    private static String getElementValue(Element root,String name)
     {
         String ret=null;
 
@@ -183,7 +183,7 @@ public class HBCIPassportAnonymous
         return ret;
     }
 
-    private Properties getElementProps(Element root,String name)
+    private static Properties getElementProps(Element root,String name)
     {
         Properties ret=null;
 
@@ -529,7 +529,7 @@ public class HBCIPassportAnonymous
         }
     }
 
-    private void createElement(Document doc,Element root,String elemName,String elemValue)
+    private static void createElement(Document doc,Element root,String elemName,String elemValue)
     {
         Node elem=doc.createElement(elemName);
         root.appendChild(elem);
@@ -537,7 +537,7 @@ public class HBCIPassportAnonymous
         elem.appendChild(data);
     }
 
-    private void createPropsElement(Document doc,Element root,String elemName,Properties p)
+    private static void createPropsElement(Document doc,Element root,String elemName,Properties p)
     {
         if (p!=null) {
             Node base=doc.createElement(elemName);

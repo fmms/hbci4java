@@ -409,7 +409,7 @@ public class DTAUS
         return ret.toString();
     }
     
-    private String expand(String st,int len,byte filler,int align)
+    private static String expand(String st,int len,byte filler,int align)
     {
         if (st.length()<len) {
             try {

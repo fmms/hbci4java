@@ -187,7 +187,7 @@ public final class Sig
     }
 
     // sigtail-segment mit werten aus den lokalen variablen füllen
-    private void fillSigTail(SEG sighead, SEG sigtail)
+    private static void fillSigTail(SEG sighead, SEG sigtail)
     {
         String sigtailName = sigtail.getPath();
 

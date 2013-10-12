@@ -213,7 +213,7 @@ public final class RIPEMD160
         this.h0 = T;
     }
 
-    private int f(byte j, int x, int y, int z)
+    private static int f(byte j, int x, int y, int z)
     {
         int ret;
         
@@ -233,37 +233,37 @@ public final class RIPEMD160
         return ret;
     }
 
-    private int K(byte j)
+    private static int K(byte j)
     {
         return Ks[j >> 4];
     }
 
-    private int K2(byte j)
+    private static int K2(byte j)
     {
         return K2s[j >> 4];
     }
 
-    private byte r(byte j)
+    private static byte r(byte j)
     {
         return rs[j];
     }
 
-    private byte r2(byte j)
+    private static byte r2(byte j)
     {
         return r2s[j];
     }
 
-    private byte s(byte j)
+    private static byte s(byte j)
     {
         return ss[j];
     }
 
-    private byte s2(byte j)
+    private static byte s2(byte j)
     {
         return s2s[j];
     }
 
-    private int roll(int x, byte num)
+    private static int roll(int x, byte num)
     {
         return ((x << num) | (x >>> (32 - num)));
     }

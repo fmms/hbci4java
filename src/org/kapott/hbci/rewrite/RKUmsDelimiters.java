@@ -37,7 +37,7 @@ import org.kapott.hbci.protocol.SyntaxElement;
 public final class RKUmsDelimiters
     extends Rewrite
 {
-    private String rewriteKUms(String st)
+    private static String rewriteKUms(String st)
     {
         HBCIUtils.log("rewriting statement of account",HBCIUtils.LOG_DEBUG);
 

@@ -292,7 +292,7 @@ public abstract class AbstractRDHSWPassport
         }
     }
 
-    private byte[] encryptMessage(byte[] plainMsg,SecretKey msgkey)
+    private static byte[] encryptMessage(byte[] plainMsg,SecretKey msgkey)
     {
         try {
             Cipher cipher=Cipher.getInstance("DESede/CBC/NoPadding");

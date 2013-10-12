@@ -173,7 +173,7 @@ public class XMLCreator2
     }
 
     
-    private void warnUnimplemented(Element elem, String[] implAttrs,
+    private static void warnUnimplemented(Element elem, String[] implAttrs,
             String[] implChilds)
     {
         String elemName = elem.getNodeName();
@@ -214,7 +214,7 @@ public class XMLCreator2
 
     
     /* erzeugt einen pfad parent/elem_idx */
-    private String composePath(String parent, String elem, int counter)
+    private static String composePath(String parent, String elem, int counter)
     {
         StringBuffer path=new StringBuffer();
         if (parent!=null && parent.length()!=0) {
@@ -226,7 +226,7 @@ public class XMLCreator2
     }
     
     
-    private boolean subTreeHasValues(XMLData xmldata, String prefix)
+    private static boolean subTreeHasValues(XMLData xmldata, String prefix)
     {
         boolean found=false;
         
@@ -242,7 +242,7 @@ public class XMLCreator2
     }
     
     
-    private void rememberMissingValue(XMLEntity target, XMLData xmldata)
+    private static void rememberMissingValue(XMLEntity target, XMLData xmldata)
     {
         Map<String, Set<XMLEntity>> errors =xmldata.getErrors();
         Set<XMLEntity> missings=errors.get("missings");
@@ -256,7 +256,7 @@ public class XMLCreator2
     }
     
 
-    private Text getOrCreateTextNode(Document rootdoc, Element elem)
+    private static Text getOrCreateTextNode(Document rootdoc, Element elem)
     {
         Text     ret=null;
         NodeList childs=elem.getChildNodes();
@@ -278,7 +278,7 @@ public class XMLCreator2
     }
     
     
-    private String getNodeValue(Node node, Document rootdoc)
+    private static String getNodeValue(Node node, Document rootdoc)
     {
         String result="";
         
@@ -296,7 +296,7 @@ public class XMLCreator2
     }
     
 
-    private void handleEnumeration(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handleEnumeration(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 
@@ -320,7 +320,7 @@ public class XMLCreator2
     }
     
 
-    private void handleMinLength(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handleMinLength(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 
@@ -339,7 +339,7 @@ public class XMLCreator2
     }
     
 
-    private void handleMaxLength(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handleMaxLength(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 
@@ -358,7 +358,7 @@ public class XMLCreator2
     }
     
 
-    private void handleMinInclusive(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handleMinInclusive(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 
@@ -377,7 +377,7 @@ public class XMLCreator2
     }
     
 
-    private void handleMaxInclusive(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handleMaxInclusive(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 
@@ -396,7 +396,7 @@ public class XMLCreator2
     }
     
 
-    private void handlePattern(XMLEntity target, Element schemaElem, XMLData xmldata)
+    private static void handlePattern(XMLEntity target, Element schemaElem, XMLData xmldata)
     {
         warnUnimplemented(schemaElem, 
             new String[] {"value"}, 

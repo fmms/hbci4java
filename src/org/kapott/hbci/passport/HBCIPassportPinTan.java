@@ -393,7 +393,7 @@ public class HBCIPassportPinTan
      * @param hhduc das echte Challenge HHDuc.
      * @return der geparste und in Flicker-Format konvertierte Code oder NULL.
      */
-    private String parseFlickercode(String challenge, String hhduc)
+    private static String parseFlickercode(String challenge, String hhduc)
     {
       // 1. Prioritaet hat hhduc. Gibts aber erst seit HITAN4
       if (hhduc != null && hhduc.trim().length() > 0)

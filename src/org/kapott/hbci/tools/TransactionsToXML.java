@@ -205,7 +205,7 @@ public class TransactionsToXML
         }
     }
     
-    private String nullAsEmpty(String st)
+    private static String nullAsEmpty(String st)
     {
         String ret=st;
         if (ret==null) {

@@ -70,7 +70,7 @@ public final class SyntaxTime
         initData(res,minsize,maxsize);
     }
 
-    private String unparseTime(String x)
+    private static String unparseTime(String x)
     {
         try {
             return HBCIUtils.time2StringISO(new SimpleDateFormat("HHmmss").parse(x));

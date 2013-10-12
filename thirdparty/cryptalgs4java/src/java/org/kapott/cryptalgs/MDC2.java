@@ -192,7 +192,7 @@ public final class MDC2
         return ret;
     }
     
-    private byte[] xor(byte[] x1,byte[] x2)
+    private static byte[] xor(byte[] x1,byte[] x2)
     {
         byte[] ret=new byte[8];
         

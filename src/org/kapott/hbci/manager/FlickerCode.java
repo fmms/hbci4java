@@ -182,7 +182,7 @@ public class FlickerCode
    * @param code
    * @return
    */
-  private String clean(String code)
+  private static String clean(String code)
   {
     code = code.replaceAll(" ",""); // Alle Leerzeichen entfernen
     code = code.trim();             // Whitespaces entfernen
@@ -272,7 +272,7 @@ public class FlickerCode
    * @param der Payload.
    * @return die XOR-Checksumme im Hex-Format.
    */
-  private String createXORChecksum(String payload)
+  private static String createXORChecksum(String payload)
   {
     int xorsum = 0;
     for (int i=0; i<payload.length(); ++i)

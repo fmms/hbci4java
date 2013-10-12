@@ -82,7 +82,7 @@ public final class SyntaxDate
         @return this date in human-readable-format dd.mm.yyyy with
                 this number of digits (i.e. using leading zeroes)
      */
-    private String unparseDate(String x)
+    private static String unparseDate(String x)
     {
         try {
             return HBCIUtils.date2StringISO(new SimpleDateFormat("yyyyMMdd").parse(x));

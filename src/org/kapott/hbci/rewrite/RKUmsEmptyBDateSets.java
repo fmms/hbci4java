@@ -32,7 +32,7 @@ import org.kapott.hbci.protocol.SyntaxElement;
 public class RKUmsEmptyBDateSets 
     extends Rewrite
 {
-    private String rewriteKUms(String st)
+    private static String rewriteKUms(String st)
     {
         StringBuffer temp=new StringBuffer(st);
         boolean      foundError=false;

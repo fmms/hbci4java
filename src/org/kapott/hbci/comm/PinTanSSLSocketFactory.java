@@ -89,7 +89,7 @@ public class PinTanSSLSocketFactory
         return HBCIUtils.getParam("log.ssl.enable","0").equals("1");
     }
     
-    private OutputStream getLogger()
+    private static OutputStream getLogger()
     {
         OutputStream result;        
         String filename=HBCIUtils.getParam("log.ssl.filename");

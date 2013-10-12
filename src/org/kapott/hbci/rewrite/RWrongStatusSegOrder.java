@@ -35,7 +35,7 @@ public class RWrongStatusSegOrder
     extends Rewrite
 {
     // Liste mit segmentInfo-Properties aus der Nachricht erzeugen
-    private List<Properties> createSegmentListFromMessage(String msg)
+    private static List<Properties> createSegmentListFromMessage(String msg)
     {
         List<Properties> segmentList=new ArrayList<Properties>();
         
@@ -168,7 +168,7 @@ public class RWrongStatusSegOrder
         return new_msg.toString();
     }
     
-    private String getDataForSegmentList(String origMsg,List<Properties> list,int counter)
+    private static String getDataForSegmentList(String origMsg,List<Properties> list,int counter)
     {
         StringBuffer data=new StringBuffer();
         

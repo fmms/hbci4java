@@ -42,7 +42,7 @@ public class ChallengeInfoTest extends AbstractTest
    * @param version die HHD-Version.
    * @return die Challenge-Daten.
    */
-  private HhdVersion getHhdVersion(String code, String version)
+  private static HhdVersion getHhdVersion(String code, String version)
   {
     ChallengeInfo info = ChallengeInfo.getInstance();
     Job job = info.getData(code);

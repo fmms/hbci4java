@@ -126,7 +126,7 @@ public class SyntaxBin
         @return the length of the header-field in this string (i.e.
                 the number of bytes making the @len@ part of the string
     */
-    private int getHeaderLen(String st)
+    private static int getHeaderLen(String st)
     {
         int idx = 0;
         int delimFound = 0;
@@ -151,7 +151,7 @@ public class SyntaxBin
         @param st the content of an HBCI-BIN-datatype-field
         @return the "real" data wrapped into the given string
      */
-    private String parse(String st)
+    private static String parse(String st)
     {
         int headerLen = getHeaderLen(st);
         String ret = "";

@@ -120,7 +120,7 @@ public final class SF
     // Stimmt dieser Segment-Code nicht mit dem nächsten eigentlich zu parsenden
     // <SEG type="..." minnum="0"> überein, wird gar nicht erst *versucht*, das
     // dieses <SEG> anzuwenden
-    private String[] extractSegId(StringBuffer sb)
+    private static String[] extractSegId(StringBuffer sb)
     {
         String[] ret=new String[] {"",""};
         
@@ -148,7 +148,7 @@ public final class SF
     // mit <SEG ...> referenzierten Segments aus der Syntax-Spez. Der gefundene
     // SegCode wird in HBCIUtils.params gecacht, so dass diese Suche nur einmal
     // erfolgen muss.
-    private String[] getRefSegId(Node segref,Document syntax)
+    private static String[] getRefSegId(Node segref,Document syntax)
     {    	
         String segname=((Element)segref).getAttribute("type");
         String segnameCacheParam="segid_"+segname;

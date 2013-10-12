@@ -217,7 +217,7 @@ public class TestGVLastSEPA extends AbstractTest
       throw new Exception("unable to delete " + dir);
   }
   
-  private void dump(String name, Properties props)
+  private static void dump(String name, Properties props)
   {
     System.out.println("--- BEGIN: " + name + " -----");
     Iterator keys = props.keySet().iterator();
