@@ -11,6 +11,7 @@ import java.util.Properties;
 import javax.xml.datatype.DatatypeFactory;
 
 import org.kapott.hbci.sepa.PainVersion;
+import org.kapott.hbci.sepa.jaxb.pain_001_002_03.ServiceLevelSEPACode;
 import org.kapott.hbci.sepa.jaxb.pain_001_003_03.AccountIdentificationSEPA;
 import org.kapott.hbci.sepa.jaxb.pain_001_003_03.ActiveOrHistoricCurrencyAndAmountSEPA;
 import org.kapott.hbci.sepa.jaxb.pain_001_003_03.ActiveOrHistoricCurrencyCodeEUR;
@@ -82,11 +83,12 @@ public class GenUebSEPA00100303 extends AbstractSEPAGenerator
 		PaymentInstructionInformationSCT pmtInf = new PaymentInstructionInformationSCT();
 		pmtInfs.add(pmtInf);
 		
-		//FIXME: Wo kommt die ID her und wie muss sie aussehen?
 		pmtInf.setPmtInfId(sepaParams.getProperty("sepaid")); 
 		pmtInf.setPmtMtd(PaymentMethodSCTCode.TRF);
 		
-		pmtInf.setReqdExctnDt(df.newXMLGregorianCalendar("1999-01-01"));
+        String date = sepaParams.getProperty("date");
+        if(date == null) date = "1999-01-01";
+		pmtInf.setReqdExctnDt(df.newXMLGregorianCalendar(date));
 		pmtInf.setDbtr(new PartyIdentificationSEPA2());
 		pmtInf.setDbtrAcct(new CashAccountSEPA1());
 		pmtInf.setDbtrAgt(new BranchAndFinancialInstitutionIdentificationSEPA3());
@@ -141,13 +143,11 @@ public class GenUebSEPA00100303 extends AbstractSEPAGenerator
 		cdtTrxTxInf.getAmt().setInstdAmt(new ActiveOrHistoricCurrencyAndAmountSEPA());
 		cdtTrxTxInf.getAmt().getInstdAmt().setValue(new BigDecimal(sepaParams.getProperty("btg.value")));
 		
-		//FIXME: Schema sagt es gibt nur "eur" aber besser wäre bestimmt trotzdem getSEPAParam("btg.curr") oder?
 		cdtTrxTxInf.getAmt().getInstdAmt().setCcy(ActiveOrHistoricCurrencyCodeEUR.EUR); 
 		
 		
 
 		//Payment Information - Credit Transfer Transaction Information - Usage
-		//FIXME: momentan nur unstrukturierter Verwendungszweck! Vielleicht gibt es einen Parameter dafür? Dann kann man per If entscheiden
 		cdtTrxTxInf.setRmtInf(new RemittanceInformationSEPA1Choice());
 		cdtTrxTxInf.getRmtInf().setUstrd(sepaParams.getProperty("usage"));
 

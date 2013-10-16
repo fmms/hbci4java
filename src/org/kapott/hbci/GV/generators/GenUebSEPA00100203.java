@@ -10,6 +10,7 @@ import java.util.Properties;
 import javax.xml.datatype.DatatypeFactory;
 
 import org.kapott.hbci.sepa.PainVersion;
+import org.kapott.hbci.sepa.jaxb.pain_001_002_02.ServiceLevelSCTCode;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.AccountIdentificationSEPA;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.ActiveOrHistoricCurrencyAndAmountSEPA;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.ActiveOrHistoricCurrencyCodeEUR;
@@ -30,6 +31,9 @@ import org.kapott.hbci.sepa.jaxb.pain_001_002_03.PaymentIdentificationSEPA;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.PaymentInstructionInformationSCT;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.PaymentMethodSCTCode;
 import org.kapott.hbci.sepa.jaxb.pain_001_002_03.RemittanceInformationSEPA1Choice;
+import org.kapott.hbci.sepa.jaxb.pain_001_002_03.ServiceLevelSEPACode;
+import org.kapott.hbci.sepa.jaxb.pain_001_002_03.PaymentTypeInformationSCT1;
+import org.kapott.hbci.sepa.jaxb.pain_001_002_03.ServiceLevelSEPA;
 
 /**
  * SEPA-Generator fuer pain.001.002.03.
@@ -78,13 +82,17 @@ public class GenUebSEPA00100203 extends AbstractSEPAGenerator
 		PaymentInstructionInformationSCT pmtInf = new PaymentInstructionInformationSCT();
 		pmtInfs.add(pmtInf);
 		
-		//FIXME: Wo kommt die ID her und wie muss sie aussehen?
 		pmtInf.setPmtInfId(sepaParams.getProperty("sepaid")); 
 		pmtInf.setPmtMtd(PaymentMethodSCTCode.TRF);
 		
-		/*FIXME: Hier schreiben wir den 1.1.1999 rein. Die Transaktion wird dann am nächsten Werktag ausgeführt. Nimmt man hier jedoch
-				 das aktuelle Datum so erhält man den HBCI Fehler: "Das Ausführungsdatum darf nicht gesetzt sein.*/
-		pmtInf.setReqdExctnDt(df.newXMLGregorianCalendar("1999-01-01")); 
+        // Payment Type Information
+		pmtInf.setPmtTpInf(new PaymentTypeInformationSCT1());
+		pmtInf.getPmtTpInf().setSvcLvl(new ServiceLevelSEPA());
+        pmtInf.getPmtTpInf().getSvcLvl().setCd(ServiceLevelSEPACode.SEPA);
+
+        String date = sepaParams.getProperty("date");
+        if(date == null) date = "1999-01-01";
+		pmtInf.setReqdExctnDt(df.newXMLGregorianCalendar(date)); 
 		
 		pmtInf.setDbtr(new PartyIdentificationSEPA2());
 		pmtInf.setDbtrAcct(new CashAccountSEPA1());
@@ -143,10 +151,8 @@ public class GenUebSEPA00100203 extends AbstractSEPAGenerator
 		
 
 		//Payment Information - Credit Transfer Transaction Information - Usage
-		//FIXME: momentan nur unstrukturierter Verwendungszweck! BPD auslesen oder Anwendung bestimmen lassen
 		cdtTrxTxInf.setRmtInf(new RemittanceInformationSEPA1Choice());
 		
-		//FIXME: Usage kann umlaute, Fragezeichen oder andere Sonderzeichen enthalten. Diese sollten vorher entfernt oder ersetzt werden
 		cdtTrxTxInf.getRmtInf().setUstrd(sepaParams.getProperty("usage"));
 
         ObjectFactory of = new ObjectFactory();

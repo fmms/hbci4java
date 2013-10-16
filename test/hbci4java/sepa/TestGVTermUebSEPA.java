@@ -1,6 +1,5 @@
 package hbci4java.sepa;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 import hbci4java.AbstractTest;
 
@@ -12,13 +11,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.kapott.hbci.GV.HBCIJob;
 import org.kapott.hbci.GV_Result.HBCIJobResult;
 import org.kapott.hbci.callback.HBCICallback;
@@ -29,10 +27,11 @@ import org.kapott.hbci.passport.AbstractHBCIPassport;
 import org.kapott.hbci.passport.HBCIPassport;
 import org.kapott.hbci.passport.HBCIPassportPinTan;
 import org.kapott.hbci.status.HBCIExecStatus;
+import org.kapott.hbci.structures.Konto;
+import org.kapott.hbci.structures.Value;
 
 
-
-public class TestGVDauerSEPAList extends AbstractTest {
+public class TestGVTermUebSEPA extends AbstractTest {
     private final static int LOGLEVEL = 5;
     private final static Map<Integer,String> settings = new HashMap<Integer,String>()
     {{
@@ -56,10 +55,24 @@ public class TestGVDauerSEPAList extends AbstractTest {
     @Test
     public void test() {
         System.out.println("---------Erstelle Job");
-        HBCIJob job =  handler.newJob("DauerSEPAList");
+        HBCIJob job =  handler.newJob("TermUebSEPA");
+        
+        Konto acc = new Konto();
+        acc.blz = params.getProperty("target_blz");
+        acc.number = params.getProperty("target_number");
+        acc.name = "Kurt Mustermann";
+        acc.bic = params.getProperty("target_bic");
+        acc.iban = params.getProperty("target_iban");
         
         int source_acc_idx = Integer.parseInt(params.getProperty("source_account_idx"));
         job.setParam("src",passport.getAccounts()[source_acc_idx]);
+        job.setParam("dst",acc);
+        
+        String value = params.getProperty("value");
+        if(value == null) value = "100";
+        job.setParam("btg",new Value(Integer.parseInt(value),"EUR"));
+        job.setParam("usage","SEPA Terminierte Überweisung");
+        job.setParam("date", params.getProperty("date"));
         
         System.out.println("---------Für Job zur Queue");
         job.addToQueue();
@@ -81,7 +94,7 @@ public class TestGVDauerSEPAList extends AbstractTest {
     {
       // Testdatei im Arbeitsverzeichnis - sollte in der Run-Konfiguration auf ein eigenes Verzeichnis zeigen  
       String workDir = System.getProperty("user.dir");
-      InputStream in = new FileInputStream(workDir+"/DauerSEPAList.properties");
+      InputStream in = new FileInputStream(workDir+"/TermUebSEPA.properties");
       params.load(in);
       
       settings.put(HBCICallback.NEED_BLZ, params.getProperty("blz"));
@@ -187,7 +200,7 @@ public class TestGVDauerSEPAList extends AbstractTest {
         throw new Exception("unable to delete " + dir);
     }
     
-    private static void dump(String name, Properties props)
+    private void dump(String name, Properties props)
     {
       System.out.println("--- BEGIN: " + name + " -----");
       Iterator keys = props.keySet().iterator();
